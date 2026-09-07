@@ -45,13 +45,11 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import {
+  Bot,
+  Boxes,
   Check,
   ChevronDown,
   Download,
-  Loader2,
-  MoreHorizontal,
-  Bot,
-  Boxes,
   KeyRound,
   Loader2,
   MoreHorizontal,
@@ -501,6 +499,9 @@ export default function IntentView() {
           >
             <X className="h-4 w-4" />
           </Button>
+        </div>
+      )}
+
       {intent.environment && (
         <div className="grid gap-3 border-y py-3 text-[11px] sm:grid-cols-2 lg:grid-cols-[auto_1fr_1fr_1fr_auto] lg:items-center">
           <div className="flex items-center gap-1.5 font-medium">
@@ -534,12 +535,6 @@ export default function IntentView() {
               verification {environmentVerification}
             </Badge>
           </div>
-        </div>
-      )}
-
-      {error && (
-        <div className="rounded border border-destructive/20 bg-destructive/10 px-3 py-2 text-sm text-destructive">
-          {error}
         </div>
       )}
 

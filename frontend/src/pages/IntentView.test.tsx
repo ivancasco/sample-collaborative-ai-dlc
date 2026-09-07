@@ -684,6 +684,8 @@ describe('IntentView', () => {
     expect(
       await screen.findByText(/excludes the stage currently in progress/i),
     ).toBeInTheDocument();
+  });
+
   it('renders the immutable environment revision and verification result', async () => {
     get.mockResolvedValue(
       baseDetail({

@@ -139,6 +139,7 @@ const baseDetail = (over: Record<string, unknown> = {}) => ({
     currentStage: null,
     pendingHumanTaskId: null,
     cliModels: null,
+    environment: null,
     parkReleaseSeconds: 300,
     createdAt: null,
     updatedAt: null,
@@ -683,6 +684,28 @@ describe('IntentView', () => {
     expect(
       await screen.findByText(/excludes the stage currently in progress/i),
     ).toBeInTheDocument();
+  it('renders the immutable environment revision and verification result', async () => {
+    get.mockResolvedValue(
+      baseDetail({
+        status: 'RUNNING',
+        environment: {
+          environmentId: 'polyglot',
+          name: 'Polyglot',
+          revisionId: 'r-7',
+          imageDigest: `sha256:${'a'.repeat(64)}`,
+          runtimeVersion: '3',
+          runtimeArn: 'arn:aws:bedrock-agentcore:eu-west-1:123:runtime/polyglot',
+          runtimeEndpoint: 'revision_r_7',
+          compatibilityVersion: '2',
+          verification: { status: 'PASSED' },
+        },
+      }),
+    );
+    renderAt();
+    expect(await screen.findByText('Polyglot')).toBeInTheDocument();
+    expect(screen.getByText('r-7')).toBeInTheDocument();
+    expect(screen.getByText('revision_r_7')).toBeInTheDocument();
+    expect(screen.getByText('verification PASSED')).toBeInTheDocument();
   });
 
   it('shows resume progress after a gate is answered but before the stage is running again', async () => {
